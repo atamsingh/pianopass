@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano Passworrrd</title>
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  </head>
+
+  <body>
+    <header class="section-0 headerWithName">
+      <br>
+      <div class="row">
+        <div class="large-12 columns">
+          <h2 id="headerText">Piano Passworrrd</h2>
+        </div>
+      </div>
+      <br>
+    </header>
+    <div class="well section-1">
+      <div class="row">
+        <div class="large-4 columns"><br></div>
+        <div class="large-4 columns">
+          <p style="text-align:center;">We will generate 3 passwords for you to remember. In the first phase of the testing, you will get a chance to learn the passwords by using the system. After you are ready, click on the "ready for testing" button to proceed to testing phase. Within this phase, you will enter the passwords you previously had the chance to remember.</p>
+          <a class="button large expanded" type="submit" value="learn" style="margin: 10px auto 20px auto;" onclick="learnStart();">Start Learning Piano Passwords</a>
+        </div>
+        <div class="large-4 columns"><br></div>
+      </div>
+    </div>
+    <div class="section-2">
+      <div class="row piano">
+        <div class="col-md-12 columns keys">
+          <div class="leftCorner" id="key01"><img src="assets/leftkey.png" alt="piano key" class="keyImage" keyNum="1"></div>
+          <div id="key02"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="2"></div>
+          <div id="key03"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="3"></div>
+          <div id="key04"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="4"></div>
+          <div id="key05"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="5"></div>
+          <div id="key06"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="6"></div>
+          <div id="key07"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="7"></div>
+          <div id="key08"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="8"></div>
+          <div id="key09"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="9"></div>
+          <div id="key10"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="10"></div>
+          <div id="key11"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="11"></div>
+          <div class="rightCorner" id="key12"><img src="assets/rightkey.png" alt="piano key" class="keyImage" keyNum="12"></div>
+        </div>
+      </div>
+    </div>
+    <div class="section-3">
+      <div class="row playTryButtons">
+        <div class="large-4 columns">
+          <a class="button success expanded buttonNotMain learn" type="submit" value="fb-learn" style="float:right;" platform="Facebook">Play Facebook password</a>
+          <a class="button secondary expanded buttonNotMain try" type="submit" value="fb-try" style="float:right;" platform="Facebook">Try</a>
+        </div>
+        <div class="large-4 columns">
+          <a class="button success expanded buttonNotMain learn" type="submit" value="em-learn" style="float:right;" platform="Email">Play Email Password</a>
+        <a class="button secondary expanded buttonNotMain try" type="submit" value="em-try" style="float:right;" platform="Email">Try</a>
+        </div>
+        <div class="large-4 columns">
+          <a class="button success expanded buttonNotMain learn" type="submit" value="ig-learn" style="float:right;" platform="Instagram">Play Instagram Password</a>
+          <a class="button secondary expanded buttonNotMain try" type="submit" value="ig-try" style="float:right;" platform="Instagram">Try</a>
+        </div>
+      </div>
+    </div>
+    <div class="section-4">
+      <div class="row tryarea">
+        <div class="large-12 columns">
+          <div class="row tryHeader">
+            <div class="large-12 columns">
+              <h4>Please select piano password for <span id="platformName" style="color:blue;"></span> above. They will be updated in the table below as you click.</h4>
+              <p> Selected keys: </p>
+            </div>
+          </div>
+          <div class="row tryTable">
+              <div class="large-12 columns">
+                <table>
+                  <tr>
+                    <td id="selectedKey1">x</td>
+                    <td id="selectedKey2">x</td>
+                    <td id="selectedKey3">x</td>
+                    <td id="selectedKey4">x</td>
+                    <td id="selectedKey5">x</td>
+                    <td id="selectedKey6">x</td>
+                    <td id="selectedKey7">x</td>
+                    <td id="selectedKey8">x</td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          <div class="row tryButtons">
+            <div class="large-4 columns">
+
+            </div>
+            <div class="large-4 columns">
+              <a class="button warning  expanded try-reset" type="submit" value="try-reset" style="float:right;">Reset</a>
+            </div>
+            <div class="large-4 columns">
+              <a class="button alert expanded try-cancel" type="submit" value="try-cancel" style="float:right;">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="audios">
+      <audio preload="auto" id="sound1" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/c.mp3"></audio>
+      <audio preload="auto" id="sound2" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/cis.mp3"></audio>
+      <audio preload="auto" id="sound3" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/d.mp3"></audio>
+      <audio preload="auto" id="sound4" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/es.mp3"></audio>
+      <audio preload="auto" id="sound5" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/e.mp3"></audio>
+      <audio preload="auto" id="sound6" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/f.mp3"></audio>
+      <audio preload="auto" id="sound7" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/fis.mp3"></audio>
+      <audio preload="auto" id="sound8" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/g.mp3"></audio>
+      <audio preload="auto" id="sound9" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/gis.mp3"></audio>
+      <audio preload="auto" id="sound10" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/a.mp3"></audio>
+      <audio preload="auto" id="sound11" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/b.mp3"></audio>
+      <audio preload="auto" id="sound12" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/h.mp3"></audio>
+    </div>
+    <div class="reveal" id="correctAnswer" data-reveal>
+      <p>Your answer was correct! Hooray!</p>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="reveal" id="incorrectAnswer" data-reveal>
+      <p>Your answer was incorrect.</p>
+      <p>Please try again or hit cancel to see the password again.</p>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <footer>
+
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/vendor/foundation.js"></script>
+    <script src="js/app.js"></script>
+
+
+  </body>
+</html>

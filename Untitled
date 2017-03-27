@@ -1,0 +1,46 @@
+#include <linux/module.h>
+#include <linux/proc_fs.h>
+#include <linux/seq_file.h>
+#include <linux/kernel.h>
+#include <linux/syscalls.h>
+#include <linux/timekeeping.h>
+#include <linux/uaccess.h>
+
+
+static int hello_proc_show(struct seq_file *m, void *v) {
+
+  unsigned long sec, usec;
+  struct timeval tv;
+
+  do_gettimeofday(&tv);
+  sec = tv.tv_sec;
+  usec = tv.tv_usec;
+  
+  seq_printf(m, "%lu sec %lu usec\n", sec, usec);
+
+  return 0;
+}
+
+static int hello_proc_open(struct inode *inode, struct  file *file) {
+  return single_open(file, hello_proc_show, NULL);
+}
+
+static const struct file_operations hello_proc_fops = {
+  .owner = THIS_MODULE,
+  .open = hello_proc_open,
+  .read = seq_read,
+};
+
+
+static int __init hello_proc_init(void) {
+  proc_create("myclock", 0, NULL, &hello_proc_fops);
+  return 0;
+}
+
+static void __exit hello_proc_exit(void) {
+  remove_proc_entry("myclock", NULL);
+}
+
+MODULE_LICENSE("GPL");
+module_init(hello_proc_init);
+module_exit(hello_proc_exit);

@@ -1,0 +1,60 @@
+#headerText, #helptextarea{
+  text-align: center;
+}
+.tryTable td{
+    text-align: center;
+    border: 1px solid black;
+}
+
+.well {
+  background-color: #F5F5F5;
+   -moz-box-shadow:    inset 0 0 5px #9E9E9E;
+   -webkit-box-shadow: inset 0 0 5px #9E9E9E;
+   box-shadow:         inset 0 0 5px #9E9E9E;
+   padding: 20px 0px 0px;
+}
+
+.keys{
+  margin: 30px;
+}
+
+fieldset div{
+  display: inline;
+}
+
+
+.keys div {
+  display: inline;
+}
+
+
+.keys div img{
+  display: inline;
+  max-width:230px;
+  max-height:500px;
+  width: auto;
+  height: auto;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  float: left;
+}
+
+.keys img:hover
+{
+	filter: brightness(60%);
+	-webkit-filter: brightness(60%);
+	-moz-filter: brightness(60%);
+	-o-filter: brightness(60%);
+	-ms-filter: brightness(60%);
+}
+
+
+.keyClicked
+{
+  filter: sepia(100%) hue-rotate(329deg);
+	-webkit-filter: sepia(100%) hue-rotate(329deg);
+	-moz-filter: sepia(100%) hue-rotate(329deg);
+	-o-filter: sepia(100%) hue-rotate(329deg);
+	-ms-filter: sepia(100%) hue-rotate(329deg);
+}
