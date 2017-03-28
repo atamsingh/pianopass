@@ -15,7 +15,7 @@
       <br>
       <div class="row">
         <div class="large-12 columns">
-          <h2 id="headerText">Piano Passworrrd</h2>
+          <h2 id="headerText" onlick="location.reload();">Piano Passworrrd</h2>
         </div>
       </div>
       <br>
@@ -30,24 +30,43 @@
         <div class="large-4 columns"><br></div>
       </div>
     </div>
-    <div class="section-2">
-      <div class="row piano">
-        <div class="col-md-12 columns keys">
-          <div class="leftCorner" id="key01"><img src="assets/leftkey.png" alt="piano key" class="keyImage" keyNum="1"></div>
-          <div id="key02"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="2"></div>
-          <div id="key03"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="3"></div>
-          <div id="key04"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="4"></div>
-          <div id="key05"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="5"></div>
-          <div id="key06"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="6"></div>
-          <div id="key07"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="7"></div>
-          <div id="key08"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="8"></div>
-          <div id="key09"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="9"></div>
-          <div id="key10"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="10"></div>
-          <div id="key11"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="11"></div>
-          <div class="rightCorner" id="key12"><img src="assets/rightkey.png" alt="piano key" class="keyImage" keyNum="12"></div>
+
+    <div class="header-1">
+      <div class="row">
+        <div class="large-12 columns">
+          <h4> Learning Phase </h4>
         </div>
       </div>
     </div>
+    <div class="header-2">
+      <div class="row">
+        <div class="large-12 columns">
+          <h4> Testing Phase </h4>
+        </div>
+      </div>
+    </div>
+    <div class="section-2">
+      <div class="row pianohelp">
+        <div class="large-12 columns"><p>You can either click on the keys to play them or, keys 1 to + (top row on your keyboard, right below function keys) are mapped to the keys.</p></div>
+      </div>
+      <div class="row piano">
+        <div class="col-md-12 columns keys">
+          <div class="leftCorner" id="key01"><img src="assets/leftkey.png" alt="piano key" class="keyImage" keyNum="1" onclick="addToLog('User clicked on key 1.');"></div>
+          <div id="key02"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="2" onclick="addToLog('User clicked on key 2.');"></div>
+          <div id="key03"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="3" onclick="addToLog('User clicked on key 3.');"></div>
+          <div id="key04"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="4" onclick="addToLog('User clicked on key 4.');"></div>
+          <div id="key05"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="5" onclick="addToLog('User clicked on key 5.');"></div>
+          <div id="key06"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="6" onclick="addToLog('User clicked on key 6.');"></div>
+          <div id="key07"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="7" onclick="addToLog('User clicked on key 7.');"></div>
+          <div id="key08"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="8" onclick="addToLog('User clicked on key 8.');"></div>
+          <div id="key09"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="9" onclick="addToLog('User clicked on key 9.');"></div>
+          <div id="key10"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="10" onclick="addToLog('User clicked on key 10.');"></div>
+          <div id="key11"><img src="assets/centerkey.png" alt="piano key" class="keyImage" keyNum="11" onclick="addToLog('User clicked on key 11.');"></div>
+          <div class="rightCorner" id="key12"><img src="assets/rightkey.png" alt="piano key" class="keyImage" keyNum="12" onclick="addToLog('User clicked on key 12.');"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="section-3">
       <div class="row playTryButtons">
         <div class="large-4 columns">
@@ -63,7 +82,20 @@
           <a class="button secondary expanded buttonNotMain try" type="submit" value="ig-try" style="float:right;" platform="Instagram">Try</a>
         </div>
       </div>
+      <br><br>
+      <div class="row playTryButtons">
+        <div class="large-8 columns">
+          <p style="text-weight:bold;color:red;text-align:right;">ONLY CLICK ON BUTTON 'BEGIN TESTING' WHEN YOU ARE READY TO BEGIN TESTING.
+            <br>
+            YOU CANNOT RETURN TO THIS SCREEN ONCE YOU BEGIN TESTING.
+          </p>
+        </div>
+        <div class="large-4 columns">
+          <a class="button alert expanded buttonNotMain" type="submit" value="readytestgo" style="float:right;" id="readytestgo">Begin Testing</a>
+        </div>
+      </div>
     </div>
+
     <div class="section-4">
       <div class="row tryarea">
         <div class="large-12 columns">
@@ -104,6 +136,18 @@
       </div>
     </div>
 
+    <div class="section-5">
+      <div class="row tryarea">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-12 columns">
+              <h4>Thank you for trying out Piano Password.</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <div class="audios">
       <audio preload="auto" id="sound1" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/c.mp3"></audio>
@@ -132,11 +176,24 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+    <div class="reveal" id="testingPasswordEnteredWrong" data-reveal>
+      <p>Answer you entered was incorrect. Please Try again.</p>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="reveal" id="testingPasswordEnteredWrongNoTriesLeft" data-reveal>
+      <p>Answer has entered was incorrect. <br>No more tries remain. <br>Please enter the next password.</p>
+      <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
     <footer>
 
     </footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.32.0.min.js"></script>
     <script src="js/vendor/foundation.js"></script>
     <script src="js/app.js"></script>
 
