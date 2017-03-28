@@ -1,6 +1,7 @@
 $(document).foundation();
 
 var time = 1000;
+var windowStatus = 'learning';
 function guid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -86,55 +87,54 @@ $(".keyImage").click(function(){
     getInput(this);
   }
 });
-
 function keypushlog(e){
   if(e.which == 49) {
     // 1 enter pressed
-    addToLog('User pushed key on keyboard to play key 1.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 1.');
   }
   if(e.which == 50) {
     // 2 enter pressed
-    addToLog('User pushed key on keyboard to play key 2.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 2.');
   }
   if(e.which == 51) {
     // 3 enter pressed
-    addToLog('User pushed key on keyboard to play key 3.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 3.');
   }
   if(e.which == 52) {
     // 4 enter pressed
-    addToLog('User pushed key on keyboard to play key 4.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 4.');
   }
   if(e.which == 53) {
     // 5 enter pressed
-    addToLog('User pushed key on keyboard to play key 5.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 5.');
   }
   if(e.which == 54) {
     // 6 enter pressed
-    addToLog('User pushed key on keyboard to play key 6.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 6.');
   }
   if(e.which == 55) {
     // 7 enter pressed
-    addToLog('User pushed key on keyboard to play key 7.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 7.');
   }
   if(e.which == 56) {
     // 8 enter pressed
-    addToLog('User pushed key on keyboard to play key 8.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 8.');
   }
   if(e.which == 57) {
     // 9 enter pressed
-    addToLog('User pushed key on keyboard to play key 9.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 9.');
   }
   if(e.which == 48) {
     // 0 enter pressed
-    addToLog('User pushed key on keyboard to play key 10.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 10.');
   }
   if(e.which == 189) {
     // - enter pressed
-    addToLog('User pushed key on keyboard to play key 11.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 11.');
   }
   if(e.which == 187) {
     // + enter pressed
-    addToLog('User pushed key on keyboard to play key 12.');
+    addToLog(windowStatus,'User pushed key on keyboard to play key 12.');
   }
 }
 function audioLoop(){
@@ -201,7 +201,7 @@ var pass2 = [];
 var pass3 = [];
 
 function learnStart(){
-  addToLog('User clicked on intital learn button.');
+  addToLog('learning','User clicked on intital learn button.');
   pass1 = [];
   pass2 = [];
   pass3 = [];
@@ -212,11 +212,11 @@ function learnStart(){
     pass3.push(Math.floor((Math.random() * 12) + 1));
   }
   // console.log("pass1: " + pass1);
-  addToLog('password for fb generated: ' + pass1);
+  addToLog('learning','password for fb generated: ' + pass1);
   // console.log("pass2: " + pass2);
-  addToLog('password for email generated: ' + pass2);
+  addToLog('learning','password for email generated: ' + pass2);
   // console.log("pass3: " + pass3);
-  addToLog('password for ig generated: ' + pass3);
+  addToLog('learning','password for ig generated: ' + pass3);
   // hide section-1 and show section-2 and section-3
   $(".section-1").removeAttr('style').css('display','none');
   $(".section-2").removeAttr('style').css('display','block');
@@ -239,7 +239,7 @@ $(".learn").click(function(){
     // ignore click 9
   }else{
     // run playPassword
-    addToLog('User Clicked play on ' + $(this).attr('platform') + ' password.');
+    addToLog('learning','User Clicked play on ' + $(this).attr('platform') + ' password.');
     playPassword($(this).attr('value'));
   }
 });
@@ -275,11 +275,11 @@ function getInput(thisKeyPushed){
       if(tryingEnteredArray.toString() == tryingAgainstArray.toString()){
         // console.log('Passwords Match!');
         $('#correctAnswer').foundation('open');
-        addToLog('User entered correct answer while in try mode. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
+        addToLog('trying','User entered correct answer while in try mode. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
       }else{
         // console.log('Passwords do not match. Please try again!');
         $('#incorrectAnswer').foundation('open');
-        addToLog('User entered incorrect answer while in try mode. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
+        addToLog('trying', 'User entered incorrect answer while in try mode. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
       }
       resettrying();
     }else{
@@ -287,22 +287,22 @@ function getInput(thisKeyPushed){
         // console.log('Passwords Match!');
         $('#correctAnswer').foundation('open');
         // move to next testingCurrent
-        addToLog('User entered correct answer while in testing mode. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
+        addToLog('testing', 'User entered correct answer while in testing mode. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
         testingCurrent++;
       }else{
         // console.log('Passwords do not match. Please try again!');
         if(testingCurrent == 1 && triesOnPass1 == 3){
           $('#testingPasswordEnteredWrongNoTriesLeft').foundation('open');
-          addToLog('User entered incorrect answer while testing. Ran out of tries while entering password for fb. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
+          addToLog('testing','User entered incorrect answer while testing. Ran out of tries while entering password for fb. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
         }else if(testingCurrent == 2 && triesOnPass2 == 3){
           $('#testingPasswordEnteredWrongNoTriesLeft').foundation('open');
-          addToLog('User entered incorrect answer while testing. Ran out of tries while entering password for email. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
+          addToLog('testing','User entered incorrect answer while testing. Ran out of tries while entering password for email. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
         }else if(testingCurrent == 3 && triesOnPass3 == 3){
           $('#testingPasswordEnteredWrongNoTriesLeft').foundation('open');
-          addToLog('User entered incorrect answer while testing. Ran out of tries while entering password for ig. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
+          addToLog('testing','User entered incorrect answer while testing. Ran out of tries while entering password for ig. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
         }else{
           $('#testingPasswordEnteredWrong').foundation('open');
-          addToLog('User entered incorrect answer while testing. Tries remainging. Currently trying ' + platforms[testingCurrent] + '. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
+          addToLog('testing','User entered incorrect answer while testing. Tries remainging. Currently trying ' + platforms[testingCurrent] + '. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
         }
       }
       resettrying();
@@ -358,13 +358,14 @@ $(".try").click(function(){
     $(".section-4").removeAttr('style').css('display','block');
 
     $("#platformName").html($(this).attr('platform'));
-    addToLog('User Clicked try on ' + $(this).attr('platform') + ' password.');
+    addToLog('learning', 'User Clicked try on ' + $(this).attr('platform') + ' password.');
+    windowStatus = 'trying',
     checkForPassword($(this).attr('value'));
   }
 });
 $(".try-reset").click(function(){
   resettrying();
-  addToLog('User Clicked retry while trying.');
+  addToLog('trying','User Clicked retry while trying.');
 });
 $(".try-cancel").click(function(){
   if($(this).attr("disabled") == 'true' || $(this).attr("disabled") == 'disabled'){
@@ -376,7 +377,9 @@ $(".try-cancel").click(function(){
     $(".section-2").removeAttr('style').css('display','block');
     $(".section-3").removeAttr('style').css('display','block');
     $(".section-4").removeAttr('style').css('display','none');
-    addToLog('User cancelled while trying to enter password.');
+
+    addToLog('trying', 'User cancelled while trying to enter password.');
+    windowStatus = 'learning';
   }
 
 });
@@ -391,7 +394,14 @@ $(document).ready(function(){
   $(".header-1").css('display','none');
   $(".header-2").css('display','none');
 
-  addToLog('User document ready.');
+  addToLog('status','User document ready.');
+  addToLog('systeminfo','Browser name: ' + navigator.appName);
+  addToLog('systeminfo','Browser codename: ' + navigator.appCodeName);
+  addToLog('systeminfo','Browser enginename: ' + navigator.product);
+  addToLog('systeminfo','Browser language: ' + navigator.language);
+  addToLog('systeminfo','OS platform: ' + navigator.platform);
+  addToLog('systeminfo','Version info: ' + navigator.appVersion);
+
 });
 
 function setupNextTest(){
@@ -425,7 +435,7 @@ function setupNextTest(){
       $(".section-5").removeAttr('style').css('display','block');
       $(".header-1").removeAttr('style').css('display','none');
       $(".header-2").removeAttr('style').css('display','none');
-      addToLog('User finished testing');
+      addToLog('status','User finished testing');
     }else{
       triesOnPass3++;
     }
@@ -439,7 +449,7 @@ function setupNextTest(){
     $(".section-5").removeAttr('style').css('display','block');
     $(".header-1").removeAttr('style').css('display','none');
     $(".header-2").removeAttr('style').css('display','none');
-    addToLog('User finished testing');
+    addToLog('status','User finished testing');
   }
 
   $('#platformName').html(platforms[testingCurrent]);
@@ -459,16 +469,18 @@ $("#readytestgo").click(function(){
   $(".section-4").removeAttr('style').css('display','block');
   $(".header-1").removeAttr('style').css('display','none');
   $(".header-2").removeAttr('style').css('display','block');
-  addToLog('User clicked to move to testing phase.');
+  addToLog(windowStatus,'User clicked to move to testing phase.');
+  windowStatus = 'testing';
   setupNextTest();
 });
 
 var logText = '';
-function addToLog(thisText){
+function addToLog(modeText, thisText){
   var obj = {};
   obj.datetime = {"$date": new Date().toISOString()};
   obj.interationId = uniqueInteractionID;
   obj.message = thisText;
+  obj.mode = modeText;
 
   // console.log(JSON.stringify(obj));
   $.ajax( { url: "https://api.mlab.com/api/1/databases/pianopasslogging/collections/dblog?apiKey=0I94b1RsYrpJKmvYnt2blriERq7IKsKf",
@@ -478,7 +490,9 @@ function addToLog(thisText){
 }
 
 
-
+function addToLogHelper(thisText){
+  addToLog(windowStatus,thisText);
+}
 
 
 //
