@@ -78,7 +78,12 @@ function playKey(thisKeyNum){
   }
 }
 var keys = {};
-$(document).keydown(function(e){keypushlog(e);keys[e.which] = true;}).keyup(function(e){keys[e.which] = false;});
+$(document).keydown(function(e){
+  if(trying){
+    keydowntoinput(e);
+  }
+  keypushlog(e);keys[e.which] = true;
+}).keyup(function(e){keys[e.which] = false;});
 $(".keyImage").click(function(){
   if(!trying){
     playKey($(this).attr('keyNum'));
@@ -87,6 +92,56 @@ $(".keyImage").click(function(){
     getInput(this);
   }
 });
+function keydowntoinput(e){
+  if(e.which == 49) {
+    // 1 enter pressed
+    getInput(document.getElementById("keyimage01"));
+  }
+  if(e.which == 50) {
+    // 2 enter pressed
+    getInput(document.getElementById("keyimage02"));
+  }
+  if(e.which == 51) {
+    // 3 enter pressed
+    getInput(document.getElementById("keyimage03"));
+  }
+  if(e.which == 52) {
+    // 4 enter pressed
+    getInput(document.getElementById("keyimage04"));
+  }
+  if(e.which == 53) {
+    // 5 enter pressed
+    getInput(document.getElementById("keyimage05"));
+  }
+  if(e.which == 54) {
+    // 6 enter pressed
+    getInput(document.getElementById("keyimage06"));
+  }
+  if(e.which == 55) {
+    // 7 enter pressed
+    getInput(document.getElementById("keyimage07"));
+  }
+  if(e.which == 56) {
+    // 8 enter pressed
+    getInput(document.getElementById("keyimage08"));
+  }
+  if(e.which == 57) {
+    // 9 enter pressed
+    getInput(document.getElementById("keyimage09"));
+  }
+  if(e.which == 48) {
+    // 0 enter pressed
+    getInput(document.getElementById("keyimage10"));
+  }
+  if(e.which == 189) {
+    // - enter pressed
+    getInput(document.getElementById("keyimage11"));
+  }
+  if(e.which == 187) {
+    // + enter pressed
+    getInput(document.getElementById("keyimage12"));
+  }
+}
 function keypushlog(e){
   if(e.which == 49) {
     // 1 enter pressed
