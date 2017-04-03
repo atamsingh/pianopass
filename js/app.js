@@ -12,6 +12,20 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+
+var playedPlatform1 = false;
+var playedPlatform2 = false;
+var playedPlatform3 = false;
+var triedPlatform1  = false;
+var triedPlatform2  = false;
+var triedPlatform3  = false;
+
 var uniqueInteractionID = guid();
 function playKey(thisKeyNum){
   // add temporary css
@@ -295,6 +309,13 @@ $(".learn").click(function(){
   }else{
     // run playPassword
     addToLog('learning','played password',{"platform": $(this).attr('platform')});
+    if($(this).attr('value') == 'fb-learn'){
+      playedPlatform1 = true;
+    }else if($(this).attr('value') == 'em-learn'){
+      playedPlatform2 = true;
+    }else if($(this).attr('value') == 'ig-learn'){
+      playedPlatform3 = true;
+    }
     playPassword($(this).attr('value'));
   }
 });
@@ -319,62 +340,28 @@ var testingCurrent = 0;
 
 function getInput(thisKeyPushed){
   if(tryingCurrentValue == 7){
-    // this push is the last key push
     tryingEnteredArray[tryingCurrentValue] = $(thisKeyPushed).attr('keyNum');
     $("#selectedKey"+(tryingCurrentValue+1)).html('<p>' + $(thisKeyPushed).attr('keyNum') + '</p>')
 
-    // console.log("All keys Entered");
-    // console.log(tryingEnteredArray.toString());
-    // console.log(tryingAgainstArray.toString());
     if(!testing){
       if(tryingEnteredArray.toString() == tryingAgainstArray.toString()){
-        // console.log('Passwords Match!');
         $('#correctAnswer').foundation('open');
         addToLog('trying','try correct',{"enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
       }else{
-        // console.log('Passwords do not match. Please try again!');
         $('#incorrectAnswer').foundation('open');
         addToLog('trying','try incorrect',{"enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
       }
       resettrying();
     }else{
       if(tryingEnteredArray.toString() == tryingAgainstArray.toString()){
-        // console.log('Passwords Match!');
-        $('#correctAnswer').foundation('open');
-        // move to next testingCurrent
-        addToLog('testing','test correct',{"enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
-        testingCurrent++;
+        setupNextTest(1);
       }else{
-        // console.log('Passwords do not match. Please try again!');
-        if(testingCurrent == 1 && triesOnPass1 == 3){
-          $('#testingPasswordEnteredWrongNoTriesLeft').foundation('open');
-          addToLog('testing','last try incorrect',{"platform":"facebook","enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
-          // addToLog('testing','User entered incorrect answer while testing. Ran out of tries while entering password for fb. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
-        }else if(testingCurrent == 2 && triesOnPass2 == 3){
-          $('#testingPasswordEnteredWrongNoTriesLeft').foundation('open');
-          addToLog('testing','last try incorrect',{"platform":"email","enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
-          // addToLog('testing','User entered incorrect answer while testing. Ran out of tries while entering password for email. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
-        }else if(testingCurrent == 3 && triesOnPass3 == 3){
-          $('#testingPasswordEnteredWrongNoTriesLeft').foundation('open');
-          addToLog('testing','last try incorrect',{"platform":"instagram","enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
-          // addToLog('testing','User entered incorrect answer while testing. Ran out of tries while entering password for ig. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
-        }else{
-          $('#testingPasswordEnteredWrong').foundation('open');
-          if(testingCurrent == 1){
-            addToLog('testing','try incorrect',{"platform":"facebook","enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
-          }else if(testingCurrent == 2){
-            addToLog('testing','try incorrect',{"platform":"email","enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
-          }else if(testingCurrent == 3){
-            addToLog('testing','try incorrect',{"platform":"instagram","enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
-          }
-          // addToLog('testing','User entered incorrect answer while testing. Tries remainging. Currently trying ' + platforms[testingCurrent] + '. Entered Array was ' + tryingEnteredArray.toString() + ' compared to correct answer of ' + tryingAgainstArray.toString());
-        }
+        setupNextTest(0);
       }
       resettrying();
-      setupNextTest();
     }
-    // checkPassword();
-  }else{
+  }
+  else{
     tryingEnteredArray[tryingCurrentValue] = $(thisKeyPushed).attr('keyNum');
     $("#selectedKey"+(tryingCurrentValue+1)).html('<p>' + $(thisKeyPushed).attr('keyNum') + '</p>');
     tryingCurrentValue += 1;
@@ -426,6 +413,13 @@ $(".try").click(function(){
     addToLog('learning', 'user begins try activity',{"platform": $(this).attr('platform')});
     windowStatus = 'trying',
     platformTrying = $(this).attr('platform');
+    if($(this).attr('value') == 'fb-try'){
+      triedPlatform1 = true;
+    }else if($(this).attr('value') == 'em-try'){
+      triedPlatform2 = true;
+    }else if($(this).attr('value') == 'ig-try'){
+      triedPlatform3 = true;
+    }
     checkForPassword($(this).attr('value'));
   }
 });
@@ -458,8 +452,11 @@ $(document).ready(function(){
   $(".section-3").css('display','none');
   $(".section-4").css('display','none');
   $(".section-5").css('display','none');
+  $(".section-6").css('display','none');
   $(".header-1").css('display','none');
   $(".header-2").css('display','none');
+
+
 
   addToLog('status','User document ready.', {});
   addToLog('systeminfo','Browser name: ' + navigator.appName, {});
@@ -471,80 +468,163 @@ $(document).ready(function(){
 
 });
 
-function setupNextTest(){
+var passTry1 = [];
+var platformPass1;
+var passTry2 = [];
+var platformPass2;
+var passTry3 = [];
+var passwordTries = [];
+var platformPass3;
+var testSetupDone = false;
+
+function setupPassTryValue(){
+  testversion++;
+  var arraystart = [pass1,pass2,pass3];
+  var namestart = ["Facebook","Email","Instagram"];
+
+  var position1 = Math.floor(Math.random()*(2-0+1)+0);
+  passTry1 = arraystart[position1];
+  platformPass1 = namestart[position1];
+  arraystart.remove(position1);
+  namestart.remove(position1);
+
+  var position2 = Math.floor(Math.random()*(1-0+1)+0);
+  passTry2 = arraystart[position2];
+  platformPass2 = namestart[position2];
+  arraystart.remove(position2);
+  namestart.remove(position2);
+
+  passTry3 = arraystart[0];
+  platformPass3 = namestart[0];
+
+  // update platforms
+  platforms[1] = platformPass1;
+  platforms[2] = platformPass2;
+  platforms[3] = platformPass3;
+
+  // update array of passwordTries
+  passwordTries[1]  = passTry1;
+  passwordTries[2]  = passTry2;
+  passwordTries[3]  = passTry3;
+
+  testSetupDone = true;
+}
+
+var testversion = 0;
+
+function setupNextTest(flag){
   trying = true;
   testing = true;
-
   $('.try-cancel').attr('disabled','true');
+
+  // initial setup of vars
+  if(!testSetupDone){
+    setupPassTryValue();
+  }
+
+  // if testing just started
   if(testingCurrent == 0){
+    testingCurrent++;
+    addToLog('learning','testing proceeds', {"platform":''+ platformPass1});
+  }
+
+  // check flag received
+  if(flag == 0){
+    // failure
+    triesOnPass[testingCurrent]++;
+    if(triesOnPass[testingCurrent] == 3){
+      $('#testingPasswordEnteredWrongNoTriesLeft').foundation('open');
+      addToLog('testing','last try incorrect',{"platform":platforms[testingCurrent],"enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
+      testingCurrent += 1;
+      addToLog('learning','testing proceeds', {"platform":''+ platforms[testingCurrent]});
+    }else{
+      addToLog('testing','try incorrect',{"platform":platforms[testingCurrent],"enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
+      $('#testingPasswordEnteredWrong').foundation('open');
+    }
+  }else if(flag == 1){
+    // success
+    $('#correctAnswer').foundation('open');
+    addToLog('testing','test correct',{"platform":platforms[testingCurrent],"enteredkeys":'' + tryingEnteredArray.toString(), "correctkeys":'' + tryingAgainstArray.toString()});
     testingCurrent++;
     addToLog('learning','testing proceeds', {"platform":''+ platforms[testingCurrent]});
   }
-  if(testingCurrent == 1){
-    tryingAgainstArray = pass1;
-    if(triesOnPass1 == 3){
-      testingCurrent += 1;
-      addToLog('learning','testing proceeds', {"platform":''+ platforms[testingCurrent]});
-    }else{
-      triesOnPass1++;
-    }
-  }else if(testingCurrent == 2){
-    tryingAgainstArray = pass2;
-    if(triesOnPass2 == 3){
-      testingCurrent += 1;
-      addToLog('learning','testing proceeds', {"platform":''+ platforms[testingCurrent]});
-    }else{
-      triesOnPass2++;
-    }
-  }else if(testingCurrent == 3){
-    tryingAgainstArray = pass3;
-    if(triesOnPass3 == 3){
-      trying = false;
+
+  // update stats
+  tryingAgainstArray = passwordTries[testingCurrent];
+  if(testingCurrent > 3 || triesOnPass[3] >= 3){
+    trying = false;
+    testing = false;
+    if(testversion == 1){
+      $(".section-1").removeAttr('style').css('display','none');
+      $(".section-2").removeAttr('style').css('display','block');
+      $(".section-3").removeAttr('style').css('display','none');
+      $(".section-4").removeAttr('style').css('display','none');
+      $(".section-5").removeAttr('style').css('display','none');
+      $(".section-6").removeAttr('style').css('display','block');
+      $(".header-1").removeAttr('style').css('display','none');
+      $(".header-2").removeAttr('style').css('display','none');
       testing = false;
+      platforms = [,'Facebook','Email','Instagram'];
+      testingCurrent = 0;
+      triesOnPass = [,0,0,0];
+      passTry1 = [];
+      platformPass1;
+      passTry2 = [];
+      platformPass2;
+      passTry3 = [];
+      passwordTries = [];
+      platformPass3;
+      testSetupDone = false;
+      addToLog('status','User finished testing phase 1',{});
+    }else{
       $(".section-1").removeAttr('style').css('display','none');
       $(".section-2").removeAttr('style').css('display','block');
       $(".section-3").removeAttr('style').css('display','none');
       $(".section-4").removeAttr('style').css('display','none');
       $(".section-5").removeAttr('style').css('display','block');
+      $(".section-6").removeAttr('style').css('display','none');
       $(".header-1").removeAttr('style').css('display','none');
       $(".header-2").removeAttr('style').css('display','none');
-      addToLog('status','User finished testing',{});
-    }else{
-      triesOnPass3++;
+      addToLog('status','User finished testing phase 2',{});
     }
-  }else{
-    trying = false;
-    testing = false;
-    $(".section-1").removeAttr('style').css('display','none');
-    $(".section-2").removeAttr('style').css('display','block');
-    $(".section-3").removeAttr('style').css('display','none');
-    $(".section-4").removeAttr('style').css('display','none');
-    $(".section-5").removeAttr('style').css('display','block');
-    $(".header-1").removeAttr('style').css('display','none');
-    $(".header-2").removeAttr('style').css('display','none');
-    addToLog('status','testing finished',{});
   }
-
   $('#platformName').html(platforms[testingCurrent]);
+
 }
 var testing = false;
 var platforms = [,'Facebook','Email','Instagram'];
 var testingCurrent = 0;
-var triesOnPass1 = 0;
-var triesOnPass2 = 1;
-var triesOnPass3 = 1;
+var triesOnPass = [,0,0,0];
 
 $("#readytestgo").click(function(){
-  // addToLog('User began test');
+  if(playedPlatform1 && playedPlatform2 && playedPlatform3 && triedPlatform1 && triedPlatform2 && triedPlatform3){
+    // addToLog('User began test');
+    $(".section-1").removeAttr('style').css('display','none');
+    $(".section-2").removeAttr('style').css('display','block');
+    $(".section-3").removeAttr('style').css('display','none');
+    $(".section-4").removeAttr('style').css('display','block');
+    $(".header-1").removeAttr('style').css('display','none');
+    $(".header-2").removeAttr('style').css('display','block');
+    addToLog(windowStatus,'user moved to testing phase',{});
+    windowStatus = 'testing';
+    setupNextTest(-1);
+  }else{
+    // console.log(playedPlatform1 +", "+ playedPlatform2  +", "+  playedPlatform3  +", "+  triedPlatform1  +", "+  triedPlatform2  +", "+  triedPlatform3);
+    $('#notlearnedeverything').foundation('open');
+  }
+
+});
+$("#readytestgosecond").click(function(){
   $(".section-1").removeAttr('style').css('display','none');
   $(".section-2").removeAttr('style').css('display','block');
   $(".section-3").removeAttr('style').css('display','none');
   $(".section-4").removeAttr('style').css('display','block');
+  $(".section-6").removeAttr('style').css('display','none');
   $(".header-1").removeAttr('style').css('display','none');
   $(".header-2").removeAttr('style').css('display','block');
   addToLog(windowStatus,'user moved to testing phase',{});
   windowStatus = 'testing';
-  setupNextTest();
+  setupNextTest(-1);
 });
 
 var logText = '';
@@ -556,21 +636,33 @@ function addToLog(modeText, thisText, thisObj){
   obj.mode = modeText;
   obj.data = thisObj;
 
-  // console.log(JSON.stringify(obj));
-  $.ajax( { url: "https://api.mlab.com/api/1/databases/pianopasslogging/collections/dblog?apiKey=0I94b1RsYrpJKmvYnt2blriERq7IKsKf",
-		  data: JSON.stringify(obj),
-		  type: "POST",
-		  contentType: "application/json"} );
+  console.log(JSON.stringify(obj));
+  // $.ajax( { url: "https://api.mlab.com/api/1/databases/pianopasslogging/collections/dblog?apiKey=0I94b1RsYrpJKmvYnt2blriERq7IKsKf",
+	// 	  data: JSON.stringify(obj),
+	// 	  type: "POST",
+	// 	  contentType: "application/json"} );
 }
 
 function addToLogHelper(thisText, keynum){
   if(!testing){
     addToLog(windowStatus,thisText,{'key':keynum, 'platform':platformTrying});
   }else{
-    addToLog(windowStatus,thisText,{'key':keynum, 'platform':platform[testingCurrent]});
+    addToLog(windowStatus,thisText,{'key':keynum, 'platform':platforms[testingCurrent]});
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //
