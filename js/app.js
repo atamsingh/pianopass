@@ -636,11 +636,11 @@ function addToLog(modeText, thisText, thisObj){
   obj.mode = modeText;
   obj.data = thisObj;
 
-  console.log(JSON.stringify(obj));
-  // $.ajax( { url: "https://api.mlab.com/api/1/databases/pianopasslogging/collections/dblog?apiKey=0I94b1RsYrpJKmvYnt2blriERq7IKsKf",
-	// 	  data: JSON.stringify(obj),
-	// 	  type: "POST",
-	// 	  contentType: "application/json"} );
+  // console.log(JSON.stringify(obj));
+  $.ajax( { url: "https://api.mlab.com/api/1/databases/pianopasslogging/collections/dblog?apiKey=0I94b1RsYrpJKmvYnt2blriERq7IKsKf",
+		  data: JSON.stringify(obj),
+		  type: "POST",
+		  contentType: "application/json"} );
 }
 
 function addToLogHelper(thisText, keynum){
