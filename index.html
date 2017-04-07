@@ -5,12 +5,17 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Piano Passworrrd</title>
+
+    <!-- Style sheets for website -->
     <link rel="stylesheet" href="css/foundation.css">
     <link rel="stylesheet" href="css/app.css">
+
+    <!-- Font loaded from google fonts. Used throughout website -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
 
   <body>
+    <!-- Header Divs -->
     <header class="section-0 headerWithName">
       <br>
       <div class="row">
@@ -20,17 +25,6 @@
       </div>
       <br>
     </header>
-    <div class="well section-1">
-      <div class="row">
-        <div class="large-4 columns"><br></div>
-        <div class="large-4 columns">
-          <p style="text-align:center;">We will generate 3 passwords for you to remember. In the first phase of the testing, you will get a chance to learn the passwords by using the system. After you are ready, click on the "ready for testing" button to proceed to testing phase. Within this phase, you will enter the passwords you previously had the chance to remember.</p>
-          <a class="button large expanded" type="submit" value="learn" style="margin: 10px auto 20px auto;" onclick="learnStart();">Start Learning Piano Passwords</a>
-        </div>
-        <div class="large-4 columns"><br></div>
-      </div>
-    </div>
-
     <div class="header-1">
       <div class="row">
         <div class="large-12 columns">
@@ -45,6 +39,20 @@
         </div>
       </div>
     </div>
+
+    <!-- Content Divs -->
+    <!-- Instructions Div -->
+    <div class="well section-1">
+      <div class="row">
+        <div class="large-4 columns"><br></div>
+        <div class="large-4 columns">
+          <p style="text-align:center;">We will generate 3 passwords for you to remember. In the first phase of the testing, you will get a chance to learn the passwords by using the system. After you are ready, click on the "ready for testing" button to proceed to testing phase. Within this phase, you will enter the passwords you previously had the chance to remember.</p>
+          <a class="button large expanded" type="submit" value="learn" style="margin: 10px auto 20px auto;" onclick="learnStart();">Start Learning Piano Passwords</a>
+        </div>
+        <div class="large-4 columns"><br></div>
+      </div>
+    </div>
+    <!-- Keyboard Div -->
     <div class="section-2">
       <div class="row pianohelp">
         <div class="large-12 columns"><p>You can either click on the keys to play them or, keys 1 to + (top row on your keyboard, right below function keys) are mapped to the keys.</p></div>
@@ -66,7 +74,7 @@
         </div>
       </div>
     </div>
-
+    <!-- Learn Button Set -->
     <div class="section-3">
       <div class="row playTryButtons">
         <div class="large-4 columns">
@@ -95,7 +103,7 @@
         </div>
       </div>
     </div>
-
+    <!-- Try Button Set -->
     <div class="section-4">
       <div class="row tryarea">
         <div class="large-12 columns">
@@ -135,7 +143,7 @@
         </div>
       </div>
     </div>
-
+    <!-- Thank you Div -->
     <div class="section-5">
       <div class="row tryarea">
         <div class="large-12 columns">
@@ -147,7 +155,7 @@
         </div>
       </div>
     </div>
-
+    <!-- Second Try Button Set -->
     <div class="section-6">
       <div class="row tryarea">
         <div class="large-12 columns">
@@ -163,21 +171,7 @@
       </div>
     </div>
 
-
-    <div class="audios">
-      <audio preload="auto" id="sound1" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/c.mp3"></audio>
-      <audio preload="auto" id="sound2" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/cis.mp3"></audio>
-      <audio preload="auto" id="sound3" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/d.mp3"></audio>
-      <audio preload="auto" id="sound4" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/es.mp3"></audio>
-      <audio preload="auto" id="sound5" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/e.mp3"></audio>
-      <audio preload="auto" id="sound6" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/f.mp3"></audio>
-      <audio preload="auto" id="sound7" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/fis.mp3"></audio>
-      <audio preload="auto" id="sound8" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/g.mp3"></audio>
-      <audio preload="auto" id="sound9" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/gis.mp3"></audio>
-      <audio preload="auto" id="sound10" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/a.mp3"></audio>
-      <audio preload="auto" id="sound11" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/b.mp3"></audio>
-      <audio preload="auto" id="sound12" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/h.mp3"></audio>
-    </div>
+    <!-- Modals revealed at various points during testing and trying -->
     <div class="reveal" id="correctAnswer" data-reveal>
       <p>Your answer was correct! Hooray!</p>
       <button class="close-button" data-close aria-label="Close modal" type="button">
@@ -210,15 +204,30 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <footer>
 
-    </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.32.0.min.js"></script>
+    <!-- Div containing all Audios for keyboard -->
+    <!-- loaded at the end and asynchronous to make loading is fast. -->
+    <div class="audios">
+      <audio preload="auto" id="sound1" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/c.mp3"></audio>
+      <audio preload="auto" id="sound2" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/cis.mp3"></audio>
+      <audio preload="auto" id="sound3" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/d.mp3"></audio>
+      <audio preload="auto" id="sound4" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/es.mp3"></audio>
+      <audio preload="auto" id="sound5" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/e.mp3"></audio>
+      <audio preload="auto" id="sound6" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/f.mp3"></audio>
+      <audio preload="auto" id="sound7" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/fis.mp3"></audio>
+      <audio preload="auto" id="sound8" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/g.mp3"></audio>
+      <audio preload="auto" id="sound9" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/gis.mp3"></audio>
+      <audio preload="auto" id="sound10" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/a.mp3"></audio>
+      <audio preload="auto" id="sound11" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/b.mp3"></audio>
+      <audio preload="auto" id="sound12" src="http://www.agnes-bruckner.com/apronus_static/music-lessons/sounds/h.mp3"></audio>
+    </div>
+
+    <!-- js helper files -->
+    <script src="js/vendor/jquery.js"></script>
     <script src="js/vendor/foundation.js"></script>
+
+    <!-- Core functionality JS file -->
+    <!-- requires foudation and jquery libs to function -->
     <script src="js/app.js"></script>
-
-
   </body>
 </html>
